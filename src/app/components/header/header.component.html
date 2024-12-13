@@ -1,0 +1,8 @@
+<header class="header">
+  <div class="header__container">
+    <img class="header__container__logo" src="../../../assets/images/logo.png" alt="">
+  </div>
+  <div class="header__search">
+    <input placeholder="Search for a movie" class="header__search__input"[(ngModel)]="movieTitle" (keyup)="searchMovieTitle()">
+  </div>
+</header>

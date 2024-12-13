@@ -1,0 +1,38 @@
+
+@if (!showSearchContent) {
+  <h2 class="movies-list-title">Popular</h2>
+  <section class="movies-list" id='scrollTargetPopular'>
+    <a [ngClass]="hideButton('#scrollTargetPopular', true)" class="movies-list__button movies-list__button-left" (click)="scrollCaroulsel('#scrollTargetPopular', true)"><</a>
+
+    @for (movie of moviesList; track movie.id) {
+      <app-movie-card class="movies-list__card"  [movie]="movie"></app-movie-card>
+    }
+    @empty {<span class="movies-list__no-content">Nothing to show here</span> }
+
+     <a [ngClass]="hideButton('#scrollTargetPopular', false)" class="movies-list__button movies-list__button-right" (click)="scrollCaroulsel('#scrollTargetPopular', false)">></a>
+  </section>
+
+
+  <h2 class="movies-list-title">Top Rated</h2>
+  <section class="movies-list">
+    <span class="movies-list__no-content">Nothing to show here</span>
+  </section >
+
+
+  <h2 class="movies-list-title">Upcoming</h2>
+  <section class="movies-list">
+    <span class="movies-list__no-content">Nothing to show here</span>
+  </section>
+  }
+
+  @else {
+    <section class="movies-list" id='scrollTargetSearch'>
+      <a [ngClass]="hideButton('#scrollTargetSearch', true)" class="movies-list__button movies-list__button-left" (click)="scrollCaroulsel('#scrollTargetSearch', true)"><</a>
+      @for (movie of moviesList; track movie.id) {
+        <app-movie-card class="movies-list__card"  [movie]="movie"></app-movie-card>
+      }
+      @empty {<span class="movies-list__no-content">We couldnt find results for {{searchTerm}}</span> }
+      <a [ngClass]="hideButton('#scrollTargetSearch', false)" class="movies-list__button movies-list__button-right" (click)="scrollCaroulsel('#scrollTargetSearch', false)">></a>
+
+    </section>
+  }
