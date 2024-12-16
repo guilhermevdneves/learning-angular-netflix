@@ -6,7 +6,7 @@ import { Movie } from '../types/movie';
 import { PaginatedMoviesResponse } from '../types/moviesResponse';
 
 function generateParams() {
-  return new HttpParams().set('api_key', environment.apiKey).set('page', 1);
+  return new HttpParams().set('api_key', environment.apiKey);
 }
 
 @Injectable({
@@ -19,15 +19,31 @@ export class MoviesService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPopularMovies(): Observable<PaginatedMoviesResponse> {
+  getPopularMovies(page: number): Observable<PaginatedMoviesResponse> {
     const endpont = `${this.API}/movie/popular`
+    const params = generateParams().append('page', page)
 
-    return this.httpClient.get<PaginatedMoviesResponse>(endpont, { params: generateParams() })
+    return this.httpClient.get<PaginatedMoviesResponse>(endpont, { params })
   }
+
+  getUpcomingMovies(page: number): Observable<PaginatedMoviesResponse> {
+    const endpont = `${this.API}/movie/upcoming`
+    const params = generateParams().append('page', page)
+
+    return this.httpClient.get<PaginatedMoviesResponse>(endpont, { params })
+  }
+
+  getTopRatedMovies(page: number): Observable<PaginatedMoviesResponse> {
+    const endpont = `${this.API}/movie/top_rated`
+    const params = generateParams().append('page', page)
+
+    return this.httpClient.get<PaginatedMoviesResponse>(endpont, { params })
+  }
+
 
   serachMoviesByTitle(movieTitle: string): Observable<PaginatedMoviesResponse> {
     const endpont = `${this.API}/search/movie`
-    const params = generateParams().append('query', movieTitle)
+    const params = generateParams().append('page', 1).append('query', movieTitle)
 
     return this.httpClient.get<PaginatedMoviesResponse>(endpont, { params })
   }
